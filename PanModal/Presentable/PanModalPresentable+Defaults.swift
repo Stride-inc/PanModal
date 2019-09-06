@@ -12,6 +12,10 @@ import UIKit
  */
 public extension PanModalPresentable where Self: UIViewController {
   
+  var dimmedView: DimmedView {
+    return DimmedView(dimAlpha: backgroundAlpha)
+  }
+  
   var topOffset: CGFloat {
     return topLayoutOffset + 21.0
   }
