@@ -16,6 +16,10 @@ public extension PanModalPresentable where Self: UIViewController {
     return DimmedView(dimAlpha: backgroundAlpha)
   }
   
+  var headerImageURLString: String? {
+    return nil
+  }
+  
   var topOffset: CGFloat {
     return topLayoutOffset + 21.0
   }

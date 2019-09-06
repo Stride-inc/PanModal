@@ -26,6 +26,11 @@ public protocol PanModalPresentable: AnyObject {
   var dimmedView: DimmedView { get }
   
   /**
+   header image url string
+   */
+  var headerImageURLString: String? { get }
+  
+  /**
    The scroll view embedded in the view controller.
    Setting this value allows for seamless transition scrolling between the embedded scroll view
    and the pan modal container view.

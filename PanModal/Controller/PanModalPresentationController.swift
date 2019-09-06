@@ -114,6 +114,24 @@ public class PanModalPresentationController: UIPresentationController {
   }()
   
   /**
+   Header image view
+   */
+  private lazy var headerImageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.contentMode = .scaleAspectFill
+    if let string = presentable?.headerImageURLString {
+      let url = URL(string: string)
+      do {
+        let data = try Data(contentsOf: url!)
+        imageView.image = UIImage(data: data)
+      } catch let err {
+        print("Error : \(err.localizedDescription)")
+      }
+    }
+    return imageView
+  }()
+  
+  /**
    A wrapper around the presented view so that we can modify
    the presented view apperance without changing
    the presented view's properties
@@ -343,6 +361,10 @@ private extension PanModalPresentationController {
     containerView.addSubview(presentedView)
     containerView.addGestureRecognizer(panGestureRecognizer)
     
+    if let _ = presentable.headerImageURLString {
+      addHeaderImageViewView(to: presentedView)
+    }
+    
     if presentable.showDragIndicator {
       addDragIndicatorView(to: presentedView)
     }
@@ -402,6 +424,19 @@ private extension PanModalPresentationController {
     dragIndicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     dragIndicatorView.widthAnchor.constraint(equalToConstant: Constants.dragIndicatorSize.width).isActive = true
     dragIndicatorView.heightAnchor.constraint(equalToConstant: Constants.dragIndicatorSize.height).isActive = true
+  }
+  
+  /**
+   Adds header image view to the view hierarchy
+   & configures its layout constraints.
+   */
+  func addHeaderImageViewView(to view: UIView) {
+    backgroundView.addSubview(headerImageView)
+    headerImageView.translatesAutoresizingMaskIntoConstraints = false
+    headerImageView.bottomAnchor.constraint(equalTo: view.topAnchor).isActive = true
+    headerImageView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor).isActive = true
+    headerImageView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor).isActive = true
+    headerImageView.topAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
   }
   
   /**
@@ -652,7 +687,12 @@ private extension PanModalPresentationController {
      Once presentedView is translated below shortForm, calculate yPos relative to bottom of screen
      and apply percentage to backgroundView alpha
      */
-    backgroundView.dimState = .percent(1.0 - (yDisplacementFromShortForm / presentedView.frame.height))
+    let percentage = 1.0 - (yDisplacementFromShortForm / presentedView.frame.height)
+    backgroundView.dimState = .percent(percentage)
+    
+    if let _ = presentable?.headerImageURLString {
+      headerImageView.alpha = max(0.0, min(1.0, percentage))
+    }
   }
   
   /**
