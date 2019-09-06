@@ -72,6 +72,10 @@ public extension PanModalPresentable where Self: UIViewController {
     return true
   }
   
+  var allowsTapDimmedViewDismiss: Bool {
+    return true
+  }
+  
   var isUserInteractionEnabled: Bool {
     return true
   }

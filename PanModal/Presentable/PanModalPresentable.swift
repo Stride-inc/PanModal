@@ -127,7 +127,14 @@ public protocol PanModalPresentable: AnyObject {
    */
   var allowsDragToDismiss: Bool { get }
   
-  
+  /**
+   A flag to determine if dismissal should be initiated when touching down on the dimmed view.
+   
+   Return false to fallback to the short form state instead of dismissing.
+   
+   Default value is true.
+   */
+  var allowsTapDimmedViewDismiss: Bool { get }
   
   /**
    A flag to toggle user interactions on the container view.
