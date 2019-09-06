@@ -57,7 +57,7 @@ public class DimmedView: UIView {
   
   // MARK: - Initializers
   
-  init(dimAlpha: CGFloat = 0.7) {
+  public init(dimAlpha: CGFloat = 0.7) {
     self.dimAlpha = dimAlpha
     super.init(frame: .zero)
     alpha = 0.0
