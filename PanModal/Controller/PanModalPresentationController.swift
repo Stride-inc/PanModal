@@ -433,7 +433,7 @@ private extension PanModalPresentationController {
   func addHeaderImageViewView(to view: UIView) {
     backgroundView.addSubview(headerImageView)
     headerImageView.translatesAutoresizingMaskIntoConstraints = false
-    headerImageView.bottomAnchor.constraint(equalTo: view.topAnchor).isActive = true
+    headerImageView.bottomAnchor.constraint(equalTo: view.topAnchor, constant: (presentable?.cornerRadius)!).isActive = true
     headerImageView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor).isActive = true
     headerImageView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor).isActive = true
     headerImageView.topAnchor.constraint(equalTo: backgroundView.topAnchor).isActive = true
