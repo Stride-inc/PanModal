@@ -687,7 +687,7 @@ private extension PanModalPresentationController {
      Once presentedView is translated below shortForm, calculate yPos relative to bottom of screen
      and apply percentage to backgroundView alpha
      */
-    let percentage = 1.0 - (yDisplacementFromShortForm / presentedView.frame.height)
+    let percentage = 1.0 - (yDisplacementFromShortForm / (presentedView.frame.height / 3))
     backgroundView.dimState = .percent(percentage)
     
     if let _ = presentable?.headerImageURLString {
